@@ -2,23 +2,26 @@ import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../context/UserContext";
 import { useRouter } from "expo-router/src/hooks";
+import { DataContext, URL } from "../context/DataProvider";
 
 
 const UserChat = ({ item }) => {
-  const { userId, setUserId } = useContext(UserType);
+  const {userInfo} = useContext(DataContext);
   const [messages, setMessages] = useState([]);
  const router = useRouter();
   const fetchMessages = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/messages/${userId}/${item._id}`
-      );
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessages(data);
-      } else {
-        console.log("error showing messags", response.status.message);
+      if(userInfo){
+        const response = await fetch(
+          `${URL}/messages/${userInfo.userId}/${item._id}`
+        );
+        const data = await response.json();
+  
+        if (response.ok) {
+          setMessages(data);
+        } else {
+          console.log("error showing messags", response.status.message);
+        }
       }
     } catch (error) {
       console.log("error fetching messages", error);
@@ -47,11 +50,14 @@ const UserChat = ({ item }) => {
   };
   return (
     <Pressable
-    //   onPress={() =>
-    //     navigation.navigate("Messages", {
-    //       recepientId: item._id,
-    //     })
-    //   }
+      onPress={() =>
+        router.push({
+          pathname: "(screens)/chat_message_screen",
+          params: { 
+            recepientId: item._id,
+           },
+        })
+      }
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -73,7 +79,7 @@ const UserChat = ({ item }) => {
         <Text style={{ fontSize: 15, fontWeight: "500" }}>{item?.name}</Text>
         {lastMessage && (
           <Text style={{ marginTop: 3, color: "gray", fontWeight: "500" }}>
-            {lastMessage?.message}
+            {lastMessage?.message} yoyo
           </Text>
         )}
       </View>

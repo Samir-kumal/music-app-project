@@ -1,4 +1,4 @@
-import {Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {Image, Pressable, StyleSheet, Text, TouchableOpacity, ScrollView,View} from "react-native";
 import React, {useLayoutEffect, useContext, useEffect, useState} from "react";
 import { Entypo } from '@expo/vector-icons'; 
 
@@ -8,91 +8,36 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import User from "../../components/User";
+import GreetingComponent from "../../components/Home/GreetingComponent";
+import MyPlayList from "../../components/Home/MyPlayList";
+import theme from "../../constants/theme";
+import DiscoverMusic from "../../components/Home/DiscoverMusic";
+import TopArtists from "../../components/Home/TopArtists";
 
 const HomeScreen = () => {
     const {userId, setUserId} = useContext(UserType);
-    const [users, setUsers] = useState([]);
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         headerTitle: "",
-    //         headerLeft: () => (
-    //             <Text style={{fontSize: 16, fontWeight: "bold"}}>Swift Chat</Text>
-    //         ),
-    //         headerRight: () => (
-    //             <View style={{flexDirection: "row", alignItems: "center", gap: 8}}>
-    //                 <Ionicons onPress={() => navigation.navigate("Chats")} name="chatbox-ellipses-outline" size={24}
-    //                           color="black"/>
-    //                 <MaterialIcons
-    //                     // onPress={() => navigation.navigate("Friends")}
-    //                     name="people-outline"
-    //                     size={24}
-    //                     color="black"
-    //                 />
-    //                 <Pressable 
-    //                 // onPress={() => navigation.navigate("Profile")}
-    //                 >
-    //                     <Image style={{width: 30, height: 30, borderRadius: 20}}
-    //                           source={{uri:""}}/>
+    
+   
 
-    //                 </Pressable>
-    //             </View>
-    //         ),
-    //     });
-    // }, []);
-
-    useEffect(() => {
-
-        const fetchUserInfo = async ()=>{
-            try {
-                const token = await AsyncStorage.getItem("authToken");
-                const decodedToken = jwt_decode(token);
-                const userId = decodedToken.userId;
-                console.log(decodedToken)
-                const response = await axios.post("http://localhost:8000/messages",{
-                    userId
-                })
-                console.log(response.data)
-
-                // setUsers(response.data);
-
-            } catch (error){
-                console.log("error retrieving users", error.message);
-
-            }
-        }
-        const fetchUsers = async () => {
-            const token = await AsyncStorage.getItem("authToken");
-            const decodedToken = jwt_decode(token);
-            const userId = decodedToken.userId;
-            setUserId(userId);
-
-            axios
-                .get(`http://localhost:8000/users/${userId}`)
-                .then((response) => {
-                    setUsers(response.data);
-                })
-                .catch((error) => {
-                    console.log("error retrieving users", error);
-                });
-        };
-
-        fetchUserInfo()
-    }, []);
-
-    console.log("users", users);
     return (
-        <View>
+        <ScrollView>
             <View>
-                <Text>
-                    hello
-                </Text>
+                <MyPlayList/>
+               <View className = "flex flex-row justify-end items-center">
+               {/* <TouchableOpacity className = "w-1/2 py-3 rounded-full flex items-center justify-center " style = {{backgroundColor:theme.Secondary}}>
+                    <Text className = "text-white text-lg">Explore</Text>
+                </TouchableOpacity> */}
+               
+               </View>
+               <DiscoverMusic/>
+               <TopArtists/>
             </View>
-            <View style={{padding: 10}}>
+            {/* <View style={{padding: 10}}>
                 {users.map((item, index) => (
                     <User key={index} item={item}/>
                 ))}
-            </View>
-        </View>
+            </View> */}
+        </ScrollView>
     );
 };
 

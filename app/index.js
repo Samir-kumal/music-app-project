@@ -1,15 +1,19 @@
 import { View, Text } from 'react-native'
-import React,{useContext} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import { DataContext } from '../src/context/DataProvider'
 import { Redirect } from 'expo-router'
+import Loading from '../src/components/Common/Loading'
 const index = () => {
-    const user = useContext(DataContext)
+  const [isLoading, setIsLoading] = useState(true);
+  const {userInfo, isLoggedIn} = useContext(DataContext)
 
-    console.log(user);
 
+  setTimeout(()=>{
+    setIsLoading(false)
+  },2000)
   return (
     <>
-     {user? <Redirect href={"(tabs)"} /> : <Redirect href={"(auth)/signin"} />}
+   <Redirect href={"(auth)/onboard"} />
     </>
   )
 }
