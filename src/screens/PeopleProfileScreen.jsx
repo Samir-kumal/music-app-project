@@ -20,6 +20,8 @@ const PeopleProfileScreen = () => {
       userInfo &&
       users.filter((user) => user.email !== userInfo.userEmail);
     const [followRequestSent, setFollowRequestSent] = useState(false);
+
+    console.log(otherUsers);
   
     const sendFollowRequest = async (currentUserId, selectedUserId) => {
       try {
@@ -38,7 +40,6 @@ const PeopleProfileScreen = () => {
       } catch (error) {
         console.log(error);
         Alert.alert("Follow Request Failed due to server error")
-
       }
     };
   return (
@@ -66,7 +67,7 @@ const PeopleProfileScreen = () => {
             onPress={sendFollowRequest}
             className="w-[90%] mx-auto border-2 py-4 border-blue-800 flex items-center justify-center rounded-full"
           >
-            <Text className="text-black">Follow</Text>
+            <Text className="text-black">Follow them</Text>
           </TouchableOpacity>
         </View>
       </View>

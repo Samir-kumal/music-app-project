@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,6 +16,8 @@ const DataProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [songs, setSongs] = useState([]);
   const [newSongs, setNewSongs] = useState([]);
+  const colorScheme = useColorScheme();
+
 
   const fetchUserInfo = async () => {
     try {
@@ -105,6 +107,7 @@ const DataProvider = ({ children }) => {
         isLoading,
         isLoggedIn,
         setIsLoggedIn,
+        colorScheme,
       }}
     >
       {children}

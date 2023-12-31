@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Text, Pressable, ScrollView,TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../context/DataProvider";
 import { Foundation } from "@expo/vector-icons";
@@ -6,6 +6,7 @@ import { Audio } from "expo-av";
 import Loading from "../../components/Common/Loading";
 import { pause, play, playNext, resume } from "../../helper/audioController";
 import { AudioContext } from "../../context/AudioProvider";
+import StatusBarComponent from "../../components/Common/StatusBar";
 // import TrackPlayer from 'react-native-track-player';
 const PlayListScreen = () => {
   const { songs } = useContext(DataContext);
@@ -63,11 +64,13 @@ const PlayListScreen = () => {
   },[currentAudio])
 
     return (
+    <>
+    <StatusBarComponent/>
     <ScrollView>
       <View>
         {songs.length > 0 ? (
           songs.map((item) => (
-            <Pressable
+            <TouchableOpacity
               onPress={() => {
                 handlePress(item);
               }}
@@ -85,13 +88,14 @@ const PlayListScreen = () => {
               <View className = 'w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center'>
               <Text className = "font-bold text-lg">{item.title[0]}</Text>
               </View>
-            </Pressable>
+            </TouchableOpacity>
           ))
         ) : (
           <Loading text={"Loading..."} />
         )}
       </View>
     </ScrollView>
+    </>
   );
 };
 

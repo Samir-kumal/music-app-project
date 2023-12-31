@@ -1,8 +1,7 @@
-import {Image, Pressable, StyleSheet, Text, TouchableOpacity, ScrollView,View} from "react-native";
+import {Image, Pressable, StyleSheet, Text, TouchableOpacity, ScrollView,View,useColorScheme} from "react-native";
 import React, {useLayoutEffect, useContext, useEffect, useState} from "react";
-import { Entypo } from '@expo/vector-icons'; 
 
-import {MaterialIcons} from "@expo/vector-icons";
+import {MaterialIcons,Entypo} from "@expo/vector-icons";
 import {UserType} from "../../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
@@ -13,13 +12,15 @@ import MyPlayList from "../../components/Home/MyPlayList";
 import theme from "../../constants/theme";
 import DiscoverMusic from "../../components/Home/DiscoverMusic";
 import TopArtists from "../../components/Home/TopArtists";
+import { DataContext } from "../../context/DataProvider";
+import StatusBar from "../../components/Common/StatusBar";
 
 const HomeScreen = () => {
     const {userId, setUserId} = useContext(UserType);
-    
    
-
     return (
+       <>
+<StatusBar/>
         <ScrollView>
             <View>
                 <MyPlayList/>
@@ -38,6 +39,7 @@ const HomeScreen = () => {
                 ))}
             </View> */}
         </ScrollView>
+       </>
     );
 };
 
