@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { UserType } from "../context/UserContext";
+import { URL } from "../context/DataProvider";
 
 const User = ({ item }) => {
   const { userId, setUserId } = useContext(UserType);
@@ -11,7 +12,7 @@ const User = ({ item }) => {
     const fetchFriendRequests = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9000/friend-requests/sent/${userId}`
+          `${URL}/friend-requests/sent/${userId}`
         );
 
         const data = await response.json();
@@ -31,7 +32,7 @@ const User = ({ item }) => {
   useEffect(() => {
     const fetchUserFriends = async () => {
       try {
-        const response = await fetch(`http://localhost:8900/friends/${userId}`);
+        const response = await fetch(`${URL}/friends/${userId}`);
 
         const data = await response.json();
 
@@ -49,7 +50,7 @@ const User = ({ item }) => {
   }, []);
   const sendFriendRequest = async (currentUserId, selectedUserId) => {
     try {
-      const response = await fetch("http://localhost:9000/friend-request", {
+      const response = await fetch(`${URL}/friend-request`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

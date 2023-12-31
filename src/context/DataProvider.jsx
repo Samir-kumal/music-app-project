@@ -8,7 +8,7 @@ import { router } from "expo-router/src/imperative-api";
 
 export const DataContext = createContext(null);
 const endpoint = "/users";
-export const URL = "http://192.168.54.141:9000";
+export const URL = "https://backend-service-for-social-musicapp.onrender.com";
 const DataProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

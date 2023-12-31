@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useContext } from "react";
 import { UserType } from "../context/UserContext";
+import { URL } from "../context/DataProvider";
 
 const FriendRequest = ({ item, friendRequests, setFriendRequests }) => {
   const { userId, setUserId } = useContext(UserType);
   const acceptRequest = async (friendRequestId) => {
     try {
       const response = await fetch(
-        "http://localhost:9000/friend-request/accept",
+        `${URL}/friend-request/accept`,
         {
           method: "POST",
           headers: {

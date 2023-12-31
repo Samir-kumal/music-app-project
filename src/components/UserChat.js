@@ -79,7 +79,7 @@ const UserChat = ({ item }) => {
         <Text style={{ fontSize: 15, fontWeight: "500" }}>{item?.name}</Text>
         {lastMessage && (
           <Text style={{ marginTop: 3, color: "gray", fontWeight: "500" }}>
-            {lastMessage?.message} yoyo
+            {lastMessage?.message}
           </Text>
         )}
       </View>

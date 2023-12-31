@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { router } from "expo-router/src/imperative-api";
 import Loading from "../../components/Common/Loading";
-import { DataContext } from "../../context/DataProvider";
+import { DataContext, URL } from "../../context/DataProvider";
 
 const LoginScreen = () => {
   const {setIsLoggedIn,fetchUserInfo} = useContext(DataContext);
@@ -41,7 +41,7 @@ const LoginScreen = () => {
         };
 
         await axios
-          .post("http://192.168.54.141:9000/login", user)
+          .post(`${URL}/login`, user)
           .then((response) => {
             console.log(response);
             const token = response.data.token;
