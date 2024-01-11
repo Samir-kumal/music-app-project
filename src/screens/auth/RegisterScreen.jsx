@@ -51,15 +51,15 @@ const RegisterScreen = () => {
     //     name: new Date() + '_image.jpeg',
     //     email:email
     //   });
-    
+
     //   const response = await axios.post(`${URL}/upload`, formData);
-    
+
     //   const json = await response.json();
-    
+
     //   if (response.ok) {
     //     return json.imageUrl; // URL of uploaded image
     //   }
-    
+
     //   throw new Error(json.error);
     // };
   const handleRegister = () => {
@@ -76,7 +76,7 @@ const RegisterScreen = () => {
     // uploadImageToServer(image,email)
     // send a POST  request to the backend API to register the user
     axios
-      .post(`${URL}/register`, user)
+      .post(`${URL}/users/register`, user)
       .then((response) => {
         console.log(response);
         Alert.alert(
@@ -117,7 +117,7 @@ const RegisterScreen = () => {
             alignItems: "center",
           }}
         >
-         
+
 
           <Text style={{ fontSize: 17, fontWeight: "600", marginTop: 15 }}>
             Register To your Account

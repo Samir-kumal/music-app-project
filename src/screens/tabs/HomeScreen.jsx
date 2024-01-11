@@ -17,18 +17,18 @@ import StatusBar from "../../components/Common/StatusBar";
 
 const HomeScreen = () => {
     const {userId, setUserId} = useContext(UserType);
-   
+
     return (
        <>
 <StatusBar/>
         <ScrollView>
             <View>
-                <MyPlayList/>
+                {/*<MyPlayList/>*/}
                <View className = "flex flex-row justify-end items-center">
                {/* <TouchableOpacity className = "w-1/2 py-3 rounded-full flex items-center justify-center " style = {{backgroundColor:theme.Secondary}}>
                     <Text className = "text-white text-lg">Explore</Text>
                 </TouchableOpacity> */}
-               
+
                </View>
                <DiscoverMusic/>
                <TopArtists/>

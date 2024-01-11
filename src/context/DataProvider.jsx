@@ -5,10 +5,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { jwtDecode } from "jwt-decode";
 import "core-js/stable/atob";
 import { router } from "expo-router/src/imperative-api";
+import {useSegments} from "expo-router";
 
 export const DataContext = createContext(null);
 const endpoint = "/users";
-export const URL = "https://backend-service-for-social-musicapp.onrender.com";
+// export const URL = "https://backend-service-for-social-musicapp.onrender.com";
+export const URL = "http://192.168.216.95:9000";
 const DataProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +19,8 @@ const DataProvider = ({ children }) => {
   const [songs, setSongs] = useState([]);
   const [newSongs, setNewSongs] = useState([]);
   const colorScheme = useColorScheme();
-
+const segments = useSegments();
+  const inAuthGroup = segments[0] === "(auth)";
 
   const fetchUserInfo = async () => {
     try {
@@ -81,15 +84,17 @@ const DataProvider = ({ children }) => {
   console.log(userInfo);
 
   useEffect(() => {
-    if (isLoggedIn || userInfo) {
+    if (  isLoggedIn && inAuthGroup  || userInfo) {
       router.replace("(tabs)");
+    } else if (!isLoggedIn && !userInfo){
+      router.replace("(auth)/signin")
     }
-  },[userInfo]);
-
+  },[userInfo, segments]);
+console.log("in auth group",inAuthGroup, "is Logged in ", isLoggedIn);
   const handleLogout = async () => {
     await AsyncStorage.removeItem("authToken");
     setTimeout(() => {
-        router.push("(auth)/signin");
+        router.replace("(auth)/signin");
       }, 2000);
       setIsLoading(true);
       setIsLoggedIn(false);
