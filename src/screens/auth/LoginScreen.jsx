@@ -41,7 +41,7 @@ const LoginScreen = () => {
         };
 
         await axios
-          .post(`${URL}/login`, user)
+          .post(`${URL}/users/login`, user)
           .then((response) => {
             console.log(response);
             const token = response.data.token;
@@ -66,6 +66,7 @@ const LoginScreen = () => {
               Alert.alert("Login Error", "Invalid Credentials");
             }
             console.log(error.message);
+              setIsLoading(false);
           });
       },
     });
